@@ -29,7 +29,7 @@ set (
 
 set (
     CPP_LIBS
-     -lpthread -pthread -lgomp 
+     -lpthread -pthread -lgomp -lGL -lglut
 )
 
 set (
@@ -37,15 +37,36 @@ set (
     -pthread 
 )
 
+set (
+    GUI_LIBS
+    lib/imgui/
+)
+
+set (
+    GUI_LIBS_BKD
+    lib/imgui/backends
+)
+
 add_executable(
     Main main.cpp
     src/ncnnoptimize.cpp
+    lib/imgui/imgui.cpp
+    lib/imgui/imgui_demo.cpp
+    lib/imgui/imgui_draw.cpp 
+    lib/imgui/imgui_tables.cpp
+    lib/imgui/imgui_widgets.cpp
+    lib/imgui/backends/imgui_impl_glut.cpp
+    lib/imgui/backends/imgui_impl_opengl2.cpp
+
 )
 target_compile_features(Main PRIVATE cxx_std_17)
 
 target_include_directories(Main PUBLIC "${NCNN_HEADER}")
 target_include_directories(Main PUBLIC "${NCNN_LAYERS}")
 target_include_directories(Main PUBLIC "${INCLUDEDIR}")
+target_include_directories(Main PUBLIC "${GUI_LIBS}")
+target_include_directories(Main PUBLIC "${GUI_LIBS_BKD}")
+
 
 target_link_libraries(Main PUBLIC "${NCNN_LIBS}")
 target_link_libraries(Main PUBLIC "${CFLAGS}")
