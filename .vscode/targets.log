@@ -1,0 +1,559 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.2.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Sun Nov 13 16:14:50 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+DESKTOP_SESSION = ubuntu
+# default
+.SHELLFLAGS := -c
+# environment
+XDG_SESSION_CLASS = user
+# environment
+XDG_SESSION_TYPE = x11
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+IM_CONFIG_PHASE = 1
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+XAUTHORITY = /home/eulermotors/.Xauthority
+# environment
+GDMSESSION = ubuntu
+# environment
+XMODIFIERS = @im=ibus
+# makefile
+CURDIR := /home/eulermotors/hedwig/extras/convertmodel
+# makefile (from 'Makefile', line 39)
+SHELL = /bin/sh
+# makefile (from 'Makefile', line 45)
+RM = /usr/bin/cmake -E remove -f
+# environment
+GDM_LANG = en_US
+# environment
+VTE_VERSION = 6003
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/bin/code
+# environment
+JOURNAL_STREAM = 8:50073
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
+# makefile (from 'Makefile', line 54)
+CMAKE_BINARY_DIR = /home/eulermotors/hedwig/extras/convertmodel
+# environment
+FANCYGIT_VERSION = 7.1.8
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# automatic
+@F = $(notdir $@)
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+# environment
+ROS_ETC_DIR = /opt/ros/noetic/etc/ros
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=dac02e0de8fc1f40d02b4686636f6355
+# environment
+ROS_PACKAGE_PATH = /opt/ros/noetic/share
+# environment
+MANAGERPID = 2147
+# environment
+ROS_PYTHON_VERSION = 3
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# environment
+VSCODE_CWD = /home/eulermotors/hedwig/extras/convertmodel
+# environment
+PAM_KWALLET5_LOGIN = /run/user/1000/kwallet5.socket
+# environment
+XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session0
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+PATH = /home/eulermotors/.pyenv/shims:/home/eulermotors/.pyenv/plugins/pyenv-virtualenv/shims:/home/eulermotors/.pyenv/bin:/home/eulermotors/.pyenv/plugins/pyenv-virtualenv/shims:/home/eulermotors/.pyenv/plugins/pyenv-virtualenv/shims:/home/eulermotors/.pyenv/bin:/opt/ros/noetic/bin:/home/eulermotors/anaconda3/bin:/home/eulermotors/anaconda3/condabin:/usr/local/cuda-11.7/bin:/home/eulermotors/.npm-global/bin:/home/eulermotors/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:node_modules/.bin
+# environment
+XDG_SESSION_DESKTOP = ubuntu
+# environment
+GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
+# environment
+SESSION_MANAGER = local/frodobaggins:@/tmp/.ICE-unix/2341,unix/frodobaggins:/tmp/.ICE-unix/2341
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# environment
+ROS_ROOT = /opt/ros/noetic/share/ros
+# environment
+CONDA_PREFIX = /home/eulermotors/anaconda3
+# environment
+XDG_MENU_PREFIX = gnome-
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+PYENV_ROOT = /home/eulermotors/.pyenv
+# environment
+INVOCATION_ID = 2594679e10dc4d12a8b7dce700c378c7
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+CMAKE_PREFIX_PATH = /opt/ros/noetic
+# environment
+XDG_GREETER_DATA_DIR = /var/lib/lightdm-data/eulermotors
+# environment
+LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+# environment
+ROS_DISTRO = noetic
+# environment
+SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 4182
+# automatic
+%F = $(notdir $%)
+# environment
+DISPLAY = :0
+# environment
+CONDA_EXE = /home/eulermotors/anaconda3/bin/conda
+# environment
+PWD = /home/eulermotors/hedwig/extras/convertmodel
+# default
+.LOADED := 
+# environment
+SSH_AGENT_PID = 2302
+# environment
+PKG_CONFIG_PATH = /opt/ros/noetic/lib/pkgconfig:/opt/ros/noetic/lib/x86_64-linux-gnu/pkgconfig
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
+# environment
+GTK_MODULES = gail:atk-bridge
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+PYENV_SHELL = bash
+# environment
+HOME = /home/eulermotors
+# environment
+LD_LIBRARY_PATH = /opt/ros/noetic/lib:/opt/ros/noetic/lib/x86_64-linux-gnu:/usr/local/cuda-11.7/lib64:
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# environment
+VSCODE_CLI = 1
+# environment
+VSCODE_CODE_CACHE_PATH = /home/eulermotors/.config/Code/CachedData/e4503b30fc78200f846c62cf8091b76ff5547662
+# environment
+LOGNAME = eulermotors
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# makefile (from 'Makefile', line 48)
+EQUALS = =
+# environment
+CONDA_PROMPT_MODIFIER = (base) 
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+MAKELEVEL := 0
+# environment
+CONDA_DEFAULT_ENV = base
+# environment
+COLORTERM = truecolor
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+QT_IM_MODULE = ibus
+# environment
+SHLVL = 1
+# environment
+GNOME_SHELL_SESSION_MODE = ubuntu
+# default
+MAKE_VERSION := 4.2.1
+# environment
+USER = eulermotors
+# makefile
+.DEFAULT_GOAL := default_target
+# environment
+XDG_CURRENT_DESKTOP = Unity
+# makefile (from 'Makefile', line 51)
+CMAKE_SOURCE_DIR = /home/eulermotors/hedwig/extras/convertmodel
+# environment
+ROSLISP_PACKAGE_DIRECTORIES = 
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+CONDA_SHLVL = 1
+# default
+MAKE_COMMAND := make
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+LANGUAGE = en_IN:en
+# environment
+XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-f8c8abd6-1.70.2-main.sock
+# environment
+PYTHONPATH = /opt/ros/noetic/lib/python3/dist-packages
+# makefile
+MAKEFLAGS = pqrRs
+# environment
+MFLAGS = -pqrRs
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+ROS_VERSION = 1
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+GDK_BACKEND = x11
+# automatic
++F = $(notdir $+)
+# environment
+NO_AT_BRIDGE = 1
+# environment
+QT_ACCESSIBILITY = 1
+# default
+MAKEFILES := 
+# environment
+OPENPILOT_ENV = 1
+# automatic
+<F = $(notdir $<)
+# environment
+ROS_MASTER_URI = http://localhost:11311
+# environment
+LC_ALL = C
+# environment
+DBUS_STARTER_BUS_TYPE = session
+# environment
+CONDA_PYTHON_EXE = /home/eulermotors/anaconda3/bin/python
+# environment
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+# makefile (from 'Makefile', line 42)
+CMAKE_COMMAND = /usr/bin/cmake
+# environment
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/488c7ea5_59c7_493d_859a_acc637b364fd
+# automatic
+^F = $(notdir $^)
+# environment
+GNOME_TERMINAL_SERVICE = :1.128
+# makefile (from 'Makefile', line 21)
+SUFFIXES = 
+# environment
+_CE_M = 
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# environment
+PYENV_VIRTUALENV_INIT = 1
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+GJS_DEBUG_OUTPUT = stderr
+# default
+.RECIPEPREFIX := 
+# environment
+LANG = C
+# environment
+ 
+TERM = xterm-256color
+# environment
+VSCODE_PID = 4182
+# environment
+DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=dac02e0de8fc1f40d02b4686636f6355
+# environment
+_CE_CONDA = 
+# variable set hash-table stats:
+# Load=136/1024=13%, Rehash=0, Collisions=15/170=9%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 66312, inode 20627894): 14 files, no impossibilities.
+
+# 14 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+%.hpux_make_needs_suffix_list:
+
+# 1 implicit rules, 0 (0.0%) terminal.
+
+# Files
+
+cmake_force:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+edit_cache:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 72):
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+
+ncnnoptimize.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 150):
+	$(MAKE) -f CMakeFiles/ncnnoptimize.dir/build.make CMakeFiles/ncnnoptimize.dir/ncnnoptimize.cpp.s
+
+all: cmake_check_build_system
+#  Phony target (prerequisite of .PHONY).
+#  Command line target.
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/6=0%
+#  recipe to execute (from 'Makefile', line 83):
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/eulermotors/hedwig/extras/convertmodel/CMakeFiles /home/eulermotors/hedwig/extras/convertmodel/CMakeFiles/progress.marks
+	$(MAKE) -f CMakeFiles/Makefile2 all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/eulermotors/hedwig/extras/convertmodel/CMakeFiles 0
+
+ncnnoptimize: cmake_check_build_system
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 118):
+	$(MAKE) -f CMakeFiles/Makefile2 ncnnoptimize
+
+.PHONY: default_target cmake_force rebuild_cache rebuild_cache/fast edit_cache edit_cache/fast all clean clean/fast preinstall preinstall/fast depend ncnnoptimize ncnnoptimize/fast ncnnoptimize.o ncnnoptimize.cpp.o ncnnoptimize.i ncnnoptimize.cpp.i ncnnoptimize.s ncnnoptimize.cpp.s help cmake_check_build_system
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+ncnnoptimize.i: ncnnoptimize.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+ncnnoptimize.o: ncnnoptimize.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+preinstall/fast:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 105):
+	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+
+.SUFFIXES: .hpux_make_needs_suffix_list
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-11-13 16:12:54.683622009
+#  File has been updated.
+#  Successfully updated.
+
+.NOTPARALLEL:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+clean/fast: clean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+cmake_check_build_system:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: ''
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := cmake_check_build_system
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := 
+# automatic
+# | := 
+# automatic
+# < := 
+# automatic
+# ^ := 
+# automatic
+# ? := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=3/14=21%
+#  recipe to execute (from 'Makefile', line 176):
+	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+
+help:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 155):
+	@echo "The following are some of the valid targets for this Makefile:"
+	@echo "... all (the default if no target is provided)"
+	@echo "... clean"
+	@echo "... depend"
+	@echo "... rebuild_cache"
+	@echo "... edit_cache"
+	@echo "... ncnnoptimize"
+	@echo "... ncnnoptimize.o"
+	@echo "... ncnnoptimize.i"
+	@echo "... ncnnoptimize.s"
+
+preinstall: all
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 100):
+	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+
+ncnnoptimize.s: ncnnoptimize.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+.SILENT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+depend:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 110):
+	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+default_target: all
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+clean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 90):
+	$(MAKE) -f CMakeFiles/Makefile2 clean
+
+ncnnoptimize.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 141):
+	$(MAKE) -f CMakeFiles/ncnnoptimize.dir/build.make CMakeFiles/ncnnoptimize.dir/ncnnoptimize.cpp.i
+
+ncnnoptimize.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 132):
+	$(MAKE) -f CMakeFiles/ncnnoptimize.dir/build.make CMakeFiles/ncnnoptimize.dir/ncnnoptimize.cpp.o
+
+rebuild_cache/fast: rebuild_cache
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+edit_cache/fast: edit_cache
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+ncnnoptimize/fast:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 123):
+	$(MAKE) -f CMakeFiles/ncnnoptimize.dir/build.make CMakeFiles/ncnnoptimize.dir/build
+
+# Not a target:
+.hpux_make_needs_suffix_list:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+rebuild_cache:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 61):
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+
+# files hash-table stats:
+# Load=29/1024=3%, Rehash=0, Collisions=3/101=3%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 45 / storage = 584 B / avg = 12 B
+# current buf: size = 8162 B / used = 584 B / count = 45 / avg = 12 B
+
+# strcache performance: lookups = 154 / hit rate = 70%
+# hash-table stats:
+# Load=45/8192=1%, Rehash=0, Collisions=2/154=1%
+# Finished Make data base on Sun Nov 13 16:14:50 2022
+
+ 

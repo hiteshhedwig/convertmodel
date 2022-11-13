@@ -1,0 +1,22 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/eulermotors/hedwig/extras/convertmodel'
+/usr/bin/cmake -S/home/eulermotors/hedwig/extras/convertmodel -B/home/eulermotors/hedwig/extras/convertmodel --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/eulermotors/hedwig/extras/convertmodel/CMakeFiles /home/eulermotors/hedwig/extras/convertmodel/CMakeFiles/progress.marks
+make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory '/home/eulermotors/hedwig/extras/convertmodel'
+make -f CMakeFiles/ncnnoptimize.dir/build.make CMakeFiles/ncnnoptimize.dir/depend
+make[2]: Entering directory '/home/eulermotors/hedwig/extras/convertmodel'
+cd /home/eulermotors/hedwig/extras/convertmodel && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/eulermotors/hedwig/extras/convertmodel /home/eulermotors/hedwig/extras/convertmodel /home/eulermotors/hedwig/extras/convertmodel /home/eulermotors/hedwig/extras/convertmodel /home/eulermotors/hedwig/extras/convertmodel/CMakeFiles/ncnnoptimize.dir/DependInfo.cmake --color=
+make[2]: Leaving directory '/home/eulermotors/hedwig/extras/convertmodel'
+make -f CMakeFiles/ncnnoptimize.dir/build.make CMakeFiles/ncnnoptimize.dir/build
+make[2]: Entering directory '/home/eulermotors/hedwig/extras/convertmodel'
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/eulermotors/hedwig/extras/convertmodel/CMakeFiles --progress-num=1 "Building CXX object CMakeFiles/ncnnoptimize.dir/ncnnoptimize.cpp.o"
+/usr/bin/c++   -I/usr/local/include/ncnn -I/home/eulermotors/ncnn/tools  -std=gnu++17 -o CMakeFiles/ncnnoptimize.dir/ncnnoptimize.cpp.o -c /home/eulermotors/hedwig/extras/convertmodel/ncnnoptimize.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --bold --progress-dir=/home/eulermotors/hedwig/extras/convertmodel/CMakeFiles --progress-num=2 "Linking CXX executable ncnnoptimize"
+/usr/bin/cmake -E cmake_link_script CMakeFiles/ncnnoptimize.dir/link.txt --verbose=
+make[2]: Leaving directory '/home/eulermotors/hedwig/extras/convertmodel'
+/usr/bin/cmake -E cmake_echo_color --switch= --progress-dir=/home/eulermotors/hedwig/extras/convertmodel/CMakeFiles --progress-num=1,2 "Built target ncnnoptimize"
+make[1]: Leaving directory '/home/eulermotors/hedwig/extras/convertmodel'
+/usr/bin/cmake -E cmake_progress_start /home/eulermotors/hedwig/extras/convertmodel/CMakeFiles 0
+make: Leaving directory '/home/eulermotors/hedwig/extras/convertmodel'
+ 
