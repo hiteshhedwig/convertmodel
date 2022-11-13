@@ -22,6 +22,7 @@
 #include <set>
 #include <vector>
 
+
 // ncnn public header
 #include "datareader.h"
 #include "layer.h"
@@ -201,14 +202,14 @@ public:
     ncnn::ParamDict mpd;
 };
 
-DEFINE_LAYER_CREATOR(CustomLayer)
+inline DEFINE_LAYER_CREATOR(CustomLayer)
 
 class ModelWriter : public ncnn::Net
 {
 public:
-    ModelWriter();
+    inline ModelWriter();
 
-    virtual ncnn::Layer* create_custom_layer(const char* type);
+    inline virtual ncnn::Layer* create_custom_layer(const char* type);
 
     std::vector<ncnn::Blob>& blobs;
     std::vector<ncnn::Layer*>& layers;
@@ -226,19 +227,19 @@ public:
     int cutend;
 
 public:
-    int set_cutparam(const char* cutstartname, const char* cutendname);
+    inline int set_cutparam(const char* cutstartname, const char* cutendname);
 
-    int shape_inference();
-    int estimate_memory_footprint();
+    inline int shape_inference();
+    inline int estimate_memory_footprint();
 
 public:
-    int fprintf_param_int_array(int id, const ncnn::Mat& m, FILE* pp);
-    int fprintf_param_float_array(int id, const ncnn::Mat& m, FILE* pp);
+    inline int fprintf_param_int_array(int id, const ncnn::Mat& m, FILE* pp);
+    inline int fprintf_param_float_array(int id, const ncnn::Mat& m, FILE* pp);
 
-    int fwrite_weight_tag_data(const ncnn::Mat& data, FILE* bp, float a = -1.2f, float b = 1.2f);
-    int fwrite_weight_data(const ncnn::Mat& data, FILE* bp, float a = -1.2f, float b = 1.2f);
+    inline int fwrite_weight_tag_data(const ncnn::Mat& data, FILE* bp, float a = -1.2f, float b = 1.2f);
+    inline int fwrite_weight_data(const ncnn::Mat& data, FILE* bp, float a = -1.2f, float b = 1.2f);
 
-    int save(const char* parampath, const char* binpath);
+    inline int save(const char* parampath, const char* binpath);
 };
 
 ModelWriter::ModelWriter()

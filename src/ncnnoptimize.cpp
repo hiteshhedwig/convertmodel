@@ -12,9 +12,6 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
 
-#ifdef _MSC_VER
-#define _CRT_SECURE_NO_DEPRECATE
-#endif
 
 #include <algorithm>
 #include <map>
@@ -22,71 +19,15 @@
 #include <vector>
 
 // ncnn public header
-#include "datareader.h"
 #include "layer.h"
 #include "layer_type.h"
 #include "net.h"
 
 // ncnn private header
-#include "modelwriter.h"
+#include "ncnnoptimize.h"
 
-class DataReaderFromEmpty : public ncnn::DataReader
-{
-public:
-    virtual int scan(const char* format, void* p) const
-    {
-        return 0;
-    }
-    virtual size_t read(void* buf, size_t size) const
-    {
-        memset(buf, 0, size);
-        return size;
-    }
-};
 
-class NetOptimize : public ModelWriter
-{
-public:
-    NetOptimize();
 
-public:
-    int fuse_batchnorm_scale();
-    int fuse_convolution_batchnorm();
-    int fuse_convolution_mul();
-    int fuse_convolution_add();
-    int fuse_convolutiondepthwise_batchnorm();
-    int fuse_convolutiondepthwise_mul();
-    int fuse_convolutiondepthwise_add();
-    int fuse_deconvolution_batchnorm();
-    int fuse_deconvolution_mul();
-    int fuse_deconvolution_add();
-    int fuse_deconvolutiondepthwise_batchnorm();
-    int fuse_innerproduct_batchnorm();
-    int fuse_innerproduct_add();
-    int fuse_innerproduct_dropout();
-    int fuse_convolution_activation();
-    int fuse_convolutiondepthwise_activation();
-    int fuse_deconvolution_activation();
-    int fuse_deconvolutiondepthwise_activation();
-    int fuse_innerproduct_activation();
-    int fuse_memorydata_binaryop();
-    int fuse_binaryop_eltwise();
-
-    int eliminate_dropout();
-    int eliminate_pooling1x1();
-    int eliminate_noop();
-    int eliminate_split();
-    int eliminate_orphaned_memorydata();
-    int eliminate_flatten_after_global_pooling();
-    int eliminate_reshape_after_global_pooling();
-    int eliminate_flatten_after_innerproduct();
-    int eliminate_reshape_before_binaryop();
-
-    int replace_reduction_with_global_pooling();
-    int replace_prelu_with_leaky_relu();
-    int replace_convolution_with_innerproduct_after_global_pooling();
-    int replace_convolution_with_innerproduct_after_innerproduct();
-};
 
 NetOptimize::NetOptimize()
     : ModelWriter()
@@ -2753,104 +2694,104 @@ int NetOptimize::replace_convolution_with_innerproduct_after_innerproduct()
     return 0;
 }
 
-int main(int argc, char** argv)
-{
-    if (argc < 6)
-    {
-        fprintf(stderr, "usage: %s [inparam] [inbin] [outparam] [outbin] [flag] [cutstart] [cutend]\n", argv[0]);
-        return -1;
-    }
+// int main(int argc, char** argv)
+// {
+//     if (argc < 6)
+//     {
+//         fprintf(stderr, "usage: %s [inparam] [inbin] [outparam] [outbin] [flag] [cutstart] [cutend]\n", argv[0]);
+//         return -1;
+//     }
 
-    const char* inparam = argv[1];
-    const char* inbin = argv[2];
-    const char* outparam = argv[3];
-    const char* outbin = argv[4];
-    int flag = atoi(argv[5]);
-    const char* cutstartname = nullptr;
-    const char* cutendname = nullptr;
+//     const char* inparam = argv[1];
+//     const char* inbin = argv[2];
+//     const char* outparam = argv[3];
+//     const char* outbin = argv[4];
+//     int flag = atoi(argv[5]);
+//     const char* cutstartname = nullptr;
+//     const char* cutendname = nullptr;
 
-    if (argc > 6)
-    {
-        cutstartname = argv[6];
-    }
+//     if (argc > 6)
+//     {
+//         cutstartname = argv[6];
+//     }
 
-    if (argc > 7)
-    {
-        cutendname = argv[7];
-    }
+//     if (argc > 7)
+//     {
+//         cutendname = argv[7];
+//     }
 
-    NetOptimize optimizer;
+//     NetOptimize optimizer;
 
-    if (flag == 65536 || flag == 1)
-    {
-        optimizer.storage_type = 1;
-    }
-    else
-    {
-        optimizer.storage_type = 0;
-    }
+//     if (flag == 65536 || flag == 1)
+//     {
+//         optimizer.storage_type = 1;
+//     }
+//     else
+//     {
+//         optimizer.storage_type = 0;
+//     }
 
-    optimizer.load_param(inparam);
+//     optimizer.load_param(inparam);
 
-    if (strcmp(inbin, "null") == 0)
-    {
-        DataReaderFromEmpty dr;
-        optimizer.load_model(dr);
-        optimizer.gen_random_weight = true;
-    }
-    else
-        optimizer.load_model(inbin);
+//     if (strcmp(inbin, "null") == 0)
+//     {
+//         DataReaderFromEmpty dr;
+//         optimizer.load_model(dr);
+//         optimizer.gen_random_weight = true;
+//     }
+//     else
+//         optimizer.load_model(inbin);
 
-    if (optimizer.set_cutparam(cutstartname, cutendname) < 0)
-    {
-        return -1;
-    }
+//     if (optimizer.set_cutparam(cutstartname, cutendname) < 0)
+//     {
+//         return -1;
+//     }
 
-    optimizer.fuse_batchnorm_scale();
-    optimizer.fuse_convolution_batchnorm();
-    optimizer.fuse_convolution_mul();
-    optimizer.fuse_convolution_add();
-    optimizer.fuse_convolutiondepthwise_batchnorm();
-    optimizer.fuse_convolutiondepthwise_mul();
-    optimizer.fuse_convolutiondepthwise_add();
-    optimizer.fuse_deconvolution_batchnorm();
-    optimizer.fuse_deconvolution_mul();
-    optimizer.fuse_deconvolution_add();
-    optimizer.fuse_deconvolutiondepthwise_batchnorm();
-    optimizer.fuse_innerproduct_batchnorm();
-    optimizer.fuse_innerproduct_add();
-    optimizer.fuse_innerproduct_dropout();
+//     optimizer.fuse_batchnorm_scale();
+//     optimizer.fuse_convolution_batchnorm();
+//     optimizer.fuse_convolution_mul();
+//     optimizer.fuse_convolution_add();
+//     optimizer.fuse_convolutiondepthwise_batchnorm();
+//     optimizer.fuse_convolutiondepthwise_mul();
+//     optimizer.fuse_convolutiondepthwise_add();
+//     optimizer.fuse_deconvolution_batchnorm();
+//     optimizer.fuse_deconvolution_mul();
+//     optimizer.fuse_deconvolution_add();
+//     optimizer.fuse_deconvolutiondepthwise_batchnorm();
+//     optimizer.fuse_innerproduct_batchnorm();
+//     optimizer.fuse_innerproduct_add();
+//     optimizer.fuse_innerproduct_dropout();
 
-    optimizer.replace_reduction_with_global_pooling();
-    optimizer.replace_prelu_with_leaky_relu();
+//     optimizer.replace_reduction_with_global_pooling();
+//     optimizer.replace_prelu_with_leaky_relu();
 
-    optimizer.fuse_convolution_activation();
-    optimizer.fuse_convolutiondepthwise_activation();
-    optimizer.fuse_deconvolution_activation();
-    optimizer.fuse_deconvolutiondepthwise_activation();
-    optimizer.fuse_innerproduct_activation();
-    optimizer.fuse_memorydata_binaryop();
-    optimizer.fuse_binaryop_eltwise();
+//     optimizer.fuse_convolution_activation();
+//     optimizer.fuse_convolutiondepthwise_activation();
+//     optimizer.fuse_deconvolution_activation();
+//     optimizer.fuse_deconvolutiondepthwise_activation();
+//     optimizer.fuse_innerproduct_activation();
+//     optimizer.fuse_memorydata_binaryop();
+//     optimizer.fuse_binaryop_eltwise();
 
-    optimizer.eliminate_dropout();
-    optimizer.eliminate_pooling1x1();
-    optimizer.eliminate_noop();
-    optimizer.eliminate_split();
-    optimizer.eliminate_flatten_after_global_pooling();
-    optimizer.eliminate_reshape_after_global_pooling();
-    optimizer.eliminate_reshape_before_binaryop();
+//     optimizer.eliminate_dropout();
+//     optimizer.eliminate_pooling1x1();
+//     optimizer.eliminate_noop();
+//     optimizer.eliminate_split();
+//     optimizer.eliminate_flatten_after_global_pooling();
+//     optimizer.eliminate_reshape_after_global_pooling();
+//     optimizer.eliminate_reshape_before_binaryop();
 
-    optimizer.replace_convolution_with_innerproduct_after_global_pooling();
-    optimizer.replace_convolution_with_innerproduct_after_innerproduct();
+//     optimizer.replace_convolution_with_innerproduct_after_global_pooling();
+//     optimizer.replace_convolution_with_innerproduct_after_innerproduct();
 
-    optimizer.eliminate_flatten_after_innerproduct();
-    optimizer.eliminate_orphaned_memorydata();
+//     optimizer.eliminate_flatten_after_innerproduct();
+//     optimizer.eliminate_orphaned_memorydata();
 
-    optimizer.shape_inference();
+//     optimizer.shape_inference();
 
-    optimizer.estimate_memory_footprint();
+//     optimizer.estimate_memory_footprint();
 
-    optimizer.save(outparam, outbin);
+//     optimizer.save(outparam, outbin);
 
-    return 0;
-}
+//     return 0;
+// }

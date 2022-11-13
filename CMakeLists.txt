@@ -11,6 +11,11 @@ set (
     ncnn_src/
 )
 
+set (
+    INCLUDEDIR
+    ./include
+)
+
 
 set (
     NCNN_LIBS
@@ -32,12 +37,17 @@ set (
     -pthread 
 )
 
-add_executable(ncnnoptimize ncnnoptimize.cpp)
-target_compile_features(ncnnoptimize PRIVATE cxx_std_17)
+add_executable(
+    Main main.cpp
+    src/ncnnoptimize.cpp
+)
+target_compile_features(Main PRIVATE cxx_std_17)
 
-target_include_directories(ncnnoptimize PUBLIC "${NCNN_HEADER}")
-target_include_directories(ncnnoptimize PUBLIC "${NCNN_LAYERS}")
-target_link_libraries(ncnnoptimize PUBLIC "${NCNN_LIBS}")
-target_link_libraries(ncnnoptimize PUBLIC "${CFLAGS}")
-target_link_libraries(ncnnoptimize PUBLIC "${CPP_LIBS}")
-target_link_libraries(ncnnoptimize PUBLIC "${VULKAN_LIBS}")
+target_include_directories(Main PUBLIC "${NCNN_HEADER}")
+target_include_directories(Main PUBLIC "${NCNN_LAYERS}")
+target_include_directories(Main PUBLIC "${INCLUDEDIR}")
+
+target_link_libraries(Main PUBLIC "${NCNN_LIBS}")
+target_link_libraries(Main PUBLIC "${CFLAGS}")
+target_link_libraries(Main PUBLIC "${CPP_LIBS}")
+target_link_libraries(Main PUBLIC "${VULKAN_LIBS}")

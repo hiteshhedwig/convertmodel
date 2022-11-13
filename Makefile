@@ -111,44 +111,71 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named ncnnoptimize
+# Target rules for targets named Main
 
 # Build rule for target.
-ncnnoptimize: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ncnnoptimize
-.PHONY : ncnnoptimize
+Main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Main
+.PHONY : Main
 
 # fast build rule for target.
-ncnnoptimize/fast:
-	$(MAKE) -f CMakeFiles/ncnnoptimize.dir/build.make CMakeFiles/ncnnoptimize.dir/build
-.PHONY : ncnnoptimize/fast
+Main/fast:
+	$(MAKE) -f CMakeFiles/Main.dir/build.make CMakeFiles/Main.dir/build
+.PHONY : Main/fast
 
-ncnnoptimize.o: ncnnoptimize.cpp.o
+main.o: main.cpp.o
 
-.PHONY : ncnnoptimize.o
+.PHONY : main.o
 
 # target to build an object file
-ncnnoptimize.cpp.o:
-	$(MAKE) -f CMakeFiles/ncnnoptimize.dir/build.make CMakeFiles/ncnnoptimize.dir/ncnnoptimize.cpp.o
-.PHONY : ncnnoptimize.cpp.o
+main.cpp.o:
+	$(MAKE) -f CMakeFiles/Main.dir/build.make CMakeFiles/Main.dir/main.cpp.o
+.PHONY : main.cpp.o
 
-ncnnoptimize.i: ncnnoptimize.cpp.i
+main.i: main.cpp.i
 
-.PHONY : ncnnoptimize.i
+.PHONY : main.i
 
 # target to preprocess a source file
-ncnnoptimize.cpp.i:
-	$(MAKE) -f CMakeFiles/ncnnoptimize.dir/build.make CMakeFiles/ncnnoptimize.dir/ncnnoptimize.cpp.i
-.PHONY : ncnnoptimize.cpp.i
+main.cpp.i:
+	$(MAKE) -f CMakeFiles/Main.dir/build.make CMakeFiles/Main.dir/main.cpp.i
+.PHONY : main.cpp.i
 
-ncnnoptimize.s: ncnnoptimize.cpp.s
+main.s: main.cpp.s
 
-.PHONY : ncnnoptimize.s
+.PHONY : main.s
 
 # target to generate assembly for a file
-ncnnoptimize.cpp.s:
-	$(MAKE) -f CMakeFiles/ncnnoptimize.dir/build.make CMakeFiles/ncnnoptimize.dir/ncnnoptimize.cpp.s
-.PHONY : ncnnoptimize.cpp.s
+main.cpp.s:
+	$(MAKE) -f CMakeFiles/Main.dir/build.make CMakeFiles/Main.dir/main.cpp.s
+.PHONY : main.cpp.s
+
+src/ncnnoptimize.o: src/ncnnoptimize.cpp.o
+
+.PHONY : src/ncnnoptimize.o
+
+# target to build an object file
+src/ncnnoptimize.cpp.o:
+	$(MAKE) -f CMakeFiles/Main.dir/build.make CMakeFiles/Main.dir/src/ncnnoptimize.cpp.o
+.PHONY : src/ncnnoptimize.cpp.o
+
+src/ncnnoptimize.i: src/ncnnoptimize.cpp.i
+
+.PHONY : src/ncnnoptimize.i
+
+# target to preprocess a source file
+src/ncnnoptimize.cpp.i:
+	$(MAKE) -f CMakeFiles/Main.dir/build.make CMakeFiles/Main.dir/src/ncnnoptimize.cpp.i
+.PHONY : src/ncnnoptimize.cpp.i
+
+src/ncnnoptimize.s: src/ncnnoptimize.cpp.s
+
+.PHONY : src/ncnnoptimize.s
+
+# target to generate assembly for a file
+src/ncnnoptimize.cpp.s:
+	$(MAKE) -f CMakeFiles/Main.dir/build.make CMakeFiles/Main.dir/src/ncnnoptimize.cpp.s
+.PHONY : src/ncnnoptimize.cpp.s
 
 # Help Target
 help:
@@ -158,10 +185,13 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... ncnnoptimize"
-	@echo "... ncnnoptimize.o"
-	@echo "... ncnnoptimize.i"
-	@echo "... ncnnoptimize.s"
+	@echo "... Main"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
+	@echo "... src/ncnnoptimize.o"
+	@echo "... src/ncnnoptimize.i"
+	@echo "... src/ncnnoptimize.s"
 .PHONY : help
 
 
