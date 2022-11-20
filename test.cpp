@@ -56,6 +56,11 @@ namespace Examples {
           choice2->Append("ONNX");
           choice2->SetSelection(0);
           choice2->Bind(wxEVT_CHOICE, &Frame::OnChoicClick2, this);
+      } else {
+          wxChoice* choice2 = new wxChoice(panel, wxID_ANY, {400, 60});
+          choice2->Append({"ONNX", "NCNN", "MNN", "PNNX"});
+          choice2->SetSelection(0);
+          choice2->Bind(wxEVT_CHOICE, &Frame::OnChoicClick2, this);
       }
     }
     void OnChoicClick2(wxCommandEvent& e) {
