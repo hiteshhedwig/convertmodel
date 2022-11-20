@@ -23,12 +23,19 @@ namespace Examples {
     // infotext->SetFont({8, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_LIGHT});
     // infotext->SetForegroundColour(wxTheColourDatabase->Find("White"));
 
-    fromonnx->SetValue(true);
-      Bind(wxEVT_RADIOBUTTON, [&](wxCommandEvent& event) {
-        staticText1->SetLabel(wxString::Format("frommnn state = %s", frommnn->GetValue() ? "true" : "false"));
-      });
-      
-      staticText1->SetLabel(wxString::Format("frommnn state = %s", frommnn->GetValue() ? "true" : "false"));
+
+    
+
+    choice1->Append({"ONNX", "NCNN", "MNN", "PNNX"});
+    choice1->SetSelection(0);
+    choice1->Bind(wxEVT_CHOICE, &Frame::OnChoicClick, this);
+
+
+    choice2->Append({"ONNX", "NCNN", "MNN", "PNNX"});
+    choice2->SetSelection(0);
+    choice2->Bind(wxEVT_CHOICE, &Frame::OnChoicClick2, this);
+
+    
 
     // button->Bind(wxEVT_BUTTON, [&](wxCommandEvent& event) {
 
@@ -41,25 +48,30 @@ namespace Examples {
   }
 
   private:
-    static wxString ToString(wxCheckBoxState state) {
-        if (state == wxCHK_UNCHECKED) return "Unchecked";
-        if (state == wxCHK_CHECKED) return "Checked";
-        return "Indeterminate";
+    void OnChoicClick(wxCommandEvent& e) {
+      choice1->SetSelection(static_cast<wxChoice*>(e.GetEventObject())->GetSelection());
+      std::cout << choice1->GetSelection() << std::endl;
+      if (choice1->GetSelection() == 3) {
+          wxChoice* choice2 = new wxChoice(panel, wxID_ANY, {400, 60});
+          choice2->Append("ONNX");
+          choice2->SetSelection(0);
+          choice2->Bind(wxEVT_CHOICE, &Frame::OnChoicClick2, this);
       }
-
+    }
+    void OnChoicClick2(wxCommandEvent& e) {
+      choice2->SetSelection(static_cast<wxChoice*>(e.GetEventObject())->GetSelection());
+    }
 
     //wxStaticText* welcometext = new wxStaticText(this, wxID_ANY, wxEmptyString, {190,10}, wxDefaultSize, wxALIGN_CENTER);
     // wxGenericStaticText* infotext = new wxGenericStaticText(this, wxID_ANY, "from ", {50,50}, wxDefaultSize, wxALIGN_CENTER);
-    
+
 
     wxPanel* panel = new wxPanel(this);
-    wxRadioButton* fromonnx = new wxRadioButton(panel, wxID_ANY, "ONNX", {30, 30});
-    wxRadioButton* fromncnn = new wxRadioButton(panel, wxID_ANY, "NCNN", {30, 60});
-    wxRadioButton* frommnn = new wxRadioButton(panel, wxID_ANY, "MNN", {30, 90});
-    wxStaticText* staticText1 = new wxStaticText(panel, wxID_ANY, wxEmptyString, {30, 150});
-
+    wxChoice* choice1 = new wxChoice(panel, wxID_ANY, {25, 60});
+    wxChoice* choice2 = new wxChoice(panel, wxID_ANY, {400, 60});
     // wxButton* button = new wxButton(panel, wxID_ANY, "Open...", {10, 260});
     // wxStaticText* label = new wxStaticText(panel, wxID_ANY, "", {10, 300});
+  
     };
 
   class Application : public wxApp {
