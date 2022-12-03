@@ -42,7 +42,7 @@ set (
 
 set (
     CFLAGS
-    -pthread 
+    -pthread -static-libstdc++
 )
 
 set (

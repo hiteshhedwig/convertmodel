@@ -26,9 +26,6 @@
 // ncnn private header
 #include "ncnnoptimize.h"
 
-
-
-
 NetOptimize::NetOptimize()
     : ModelWriter()
 {
@@ -2692,6 +2689,55 @@ int NetOptimize::replace_convolution_with_innerproduct_after_innerproduct()
     }
 
     return 0;
+}
+
+int NetOptimize::optimize() {
+
+        fuse_batchnorm_scale();
+        fuse_convolution_batchnorm();
+        fuse_convolution_mul();
+        fuse_convolution_add();
+        fuse_convolutiondepthwise_batchnorm();
+        fuse_convolutiondepthwise_mul();
+        fuse_convolutiondepthwise_add();
+        fuse_deconvolution_batchnorm();
+        fuse_deconvolution_mul();
+        fuse_deconvolution_add();
+        fuse_deconvolutiondepthwise_batchnorm();
+        fuse_innerproduct_batchnorm();
+        fuse_innerproduct_add();
+        fuse_innerproduct_dropout();
+
+        replace_reduction_with_global_pooling();
+        replace_prelu_with_leaky_relu();
+
+        fuse_convolution_activation();
+        fuse_convolutiondepthwise_activation();
+        fuse_deconvolution_activation();
+        fuse_deconvolutiondepthwise_activation();
+        fuse_innerproduct_activation();
+        fuse_memorydata_binaryop();
+        fuse_binaryop_eltwise();
+
+        eliminate_dropout();
+        eliminate_pooling1x1();
+        eliminate_noop();
+        eliminate_split();
+        eliminate_flatten_after_global_pooling();
+        eliminate_reshape_after_global_pooling();
+        eliminate_reshape_before_binaryop();
+
+        replace_convolution_with_innerproduct_after_global_pooling();
+        replace_convolution_with_innerproduct_after_innerproduct();
+
+        eliminate_flatten_after_innerproduct();
+        eliminate_orphaned_memorydata();
+
+        shape_inference(); 
+        estimate_memory_footprint();
+
+        return 0;
+
 }
 
 // int main(int argc, char** argv)

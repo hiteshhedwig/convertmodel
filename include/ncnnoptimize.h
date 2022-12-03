@@ -45,6 +45,11 @@ public:
     int replace_prelu_with_leaky_relu();
     int replace_convolution_with_innerproduct_after_global_pooling();
     int replace_convolution_with_innerproduct_after_innerproduct();
+
+    int optimize();
+    int save_optimized_model(const char *paramPath, const char *binPath) {
+        save(paramPath, binPath);
+    }
 };
 
 
