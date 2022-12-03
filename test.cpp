@@ -12,7 +12,7 @@
 #include "layer_type.h"
 #include "net.h"
 #include "ncnnoptimize.h"
-
+#include <string.h>
 #include "optimizer.h"
 #include <algorithm>
 #include <map>
@@ -23,8 +23,9 @@ namespace Examples {
 
   class Frame : public wxFrame {
   public:
-  const char* binPath;
-  const char* paramPath;
+  std::string current_conversion;
+  std::string paramPath ;
+  std::string binPath   ;
   Frame() : wxFrame(nullptr, wxID_ANY, "savior") {
     SetClientSize(640, 480);
 
@@ -39,11 +40,11 @@ namespace Examples {
     
 
     choice1->Append({"ONNX", "NCNN", "MNN", "PNNX"});
-    choice1->SetSelection(01);
+    choice1->SetSelection(0);
     choice1->Bind(wxEVT_CHOICE, &Frame::OnChoicClick, this);
 
 
-    choice2->Append({"ONNX", "NCNN", "MNN", "PNNX"});
+    choice2->Append({"ONNX", "NCNN", "NCNN-optimized", "MNN", "PNNX"});
     choice2->SetSelection(0);
     choice2->Bind(wxEVT_CHOICE, &Frame::OnChoicClick2, this);
 
@@ -70,18 +71,29 @@ namespace Examples {
       });
 
     button->Bind(wxEVT_BUTTON, [&](wxCommandEvent& event) {
-        staticText1->SetLabel(wxString::Format("Converted !", ++button1Clicked));
-        optimizer.ncnnOptimize(
-          false,
-          nullptr,
-          "/home/eulermotors/ncnn/tools/tools/onnx/conv/ncnn.param",
-          "/home/eulermotors/ncnn/tools/tools/onnx/conv/ncnn.bin"
-        );
+        if (current_conversion == "NCNN-optimized") {
+          if (binPath.empty()) {
+              std::cout << "bin path not specified" << binPath << std::endl;
+              wxMessageDialog(nullptr, ".bin path not loaded").ShowModal();
+              return;
+          } 
+          if (paramPath.empty()) {
+              std::cout << "param path not specified" << paramPath << std::endl;
+              wxMessageDialog(nullptr, ".param path not loaded").ShowModal();
+              return;
+          }
+          optimizer.ncnnOptimize(
+            false,
+            nullptr,
+            paramPath.c_str(),
+            binPath.c_str()
+          );
 
-        optimizer.saveOptimized(
-          "test1.param",
-          "test1.bin"
-        );
+          optimizer.saveOptimized(
+            "ncnn_optimized.param",
+            "ncnn_optimized.bin"
+          );
+        } 
     });
   }
 
@@ -95,11 +107,17 @@ namespace Examples {
           choice2->Append("NCNN");
           choice2->SetSelection(0);
           choice2->Bind(wxEVT_CHOICE, &Frame::OnChoicClick2, this);
-      } else {
+      }   
+      if (choice1->GetSelection() == 1) {
           wxChoice* choice2 = new wxChoice(panel, wxID_ANY, {400, 60});
-          choice2->Append({"ONNX-sim", "NCNN", "MNN", "PNNX"});
+          choice2->Append("NCNN-optimized");
           choice2->SetSelection(0);
           choice2->Bind(wxEVT_CHOICE, &Frame::OnChoicClick2, this);
+          current_conversion = "NCNN-optimized";
+
+          buttonfile_bin   = new wxButton(panel, wxID_ANY, "Load BIN", {35, 150});
+          buttonfile_param = new wxButton(panel, wxID_ANY, "Load PARAM", {35, 230});
+
       }
     }
     void OnChoicClick2(wxCommandEvent& e) {
@@ -113,15 +131,15 @@ namespace Examples {
     wxPanel* panel = new wxPanel(this);
     wxChoice* choice1 = new wxChoice(panel, wxID_ANY, {25, 60});
     wxChoice* choice2 = new wxChoice(panel, wxID_ANY, {400, 60});
-    wxButton* button = new wxButton(panel, wxID_ANY, "Convert", {200, 260});
-    wxButton* buttonfile_bin = new wxButton(panel, wxID_ANY, "Load BIN", {300, 260});
-    wxButton* buttonfile_param = new wxButton(panel, wxID_ANY, "Load PARAM", {300, 300});
+    wxButton* button = new wxButton(panel, wxID_ANY, "Convert", {260, 300});
+    wxButton* buttonfile_bin   = new wxButton() ;//= new wxButton(panel, wxID_ANY, "Load BIN", {35, 150});
+    wxButton* buttonfile_param = new wxButton(); //= new wxButton(panel, wxID_ANY, "Load PARAM", {35, 230});
 
-    wxStaticText* label_bin = new wxStaticText(panel, wxID_ANY, "", {300, 270});
-    wxStaticText* label_param = new wxStaticText(panel, wxID_ANY, "", {300, 310});
+    wxStaticText* label_bin = new wxStaticText(panel, wxID_ANY, "", {35, 200});
+    wxStaticText* label_param = new wxStaticText(panel, wxID_ANY, "", {35, 270});
 
 
-    wxStaticText* staticText1 = new wxStaticText(panel, wxID_ANY, "button1 clicked 0 times", {50, 150}, {200, 20});
+    //wxStaticText* staticText1 = new wxStaticText(panel, wxID_ANY, "button1 clicked 0 times", {50, 150}, {200, 20});
     int button1Clicked = 0;
     Optimizer optimizer;
     //NetOptimize optimizer;
