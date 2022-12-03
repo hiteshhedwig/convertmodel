@@ -26,6 +26,31 @@ namespace Examples {
   std::string current_conversion;
   std::string paramPath ;
   std::string binPath   ;
+
+  void updateButtonBin() {
+    buttonfile_bin->Bind(wxEVT_BUTTON, [&](wxCommandEvent& event) {
+        wxFileDialog openFileDialog(this, wxEmptyString, wxEmptyString, wxEmptyString, "BIN Files (*.bin)|*.bin", wxFD_OPEN|wxFD_FILE_MUST_EXIST);
+        openFileDialog.SetFilterIndex(0);
+        if (openFileDialog.ShowModal() == wxID_OK) {
+          label_bin->SetLabelText(wxString::Format("File = %s",  openFileDialog.GetPath()));
+          std::cout << openFileDialog.GetPath() << std::endl;
+          binPath = openFileDialog.GetPath();
+        }
+      });
+  }
+
+  void updateButtonParam() {
+    buttonfile_param->Bind(wxEVT_BUTTON, [&](wxCommandEvent& event) {
+        wxFileDialog openFileDialog(this, wxEmptyString, wxEmptyString, wxEmptyString, "PARAM Files (*.param)|*.param", wxFD_OPEN|wxFD_FILE_MUST_EXIST);
+        openFileDialog.SetFilterIndex(0);
+        if (openFileDialog.ShowModal() == wxID_OK) {
+          label_param->SetLabelText(wxString::Format("File = %s",  openFileDialog.GetPath()));
+          std::cout << openFileDialog.GetPath() << std::endl;
+          paramPath = openFileDialog.GetPath();
+        }
+      });
+  }
+
   Frame() : wxFrame(nullptr, wxID_ANY, "savior") {
     SetClientSize(640, 480);
 
@@ -47,28 +72,6 @@ namespace Examples {
     choice2->Append({"ONNX", "NCNN", "NCNN-optimized", "MNN", "PNNX"});
     choice2->SetSelection(0);
     choice2->Bind(wxEVT_CHOICE, &Frame::OnChoicClick2, this);
-
-    
-
-    buttonfile_bin->Bind(wxEVT_BUTTON, [&](wxCommandEvent& event) {
-        wxFileDialog openFileDialog(this, wxEmptyString, wxEmptyString, wxEmptyString, "BIN Files (*.bin)|*.bin", wxFD_OPEN|wxFD_FILE_MUST_EXIST);
-        openFileDialog.SetFilterIndex(0);
-        if (openFileDialog.ShowModal() == wxID_OK) {
-          label_bin->SetLabelText(wxString::Format("File = %s",  openFileDialog.GetPath()));
-          std::cout << openFileDialog.GetPath() << std::endl;
-          binPath = openFileDialog.GetPath();
-        }
-      });
-
-    buttonfile_param->Bind(wxEVT_BUTTON, [&](wxCommandEvent& event) {
-        wxFileDialog openFileDialog(this, wxEmptyString, wxEmptyString, wxEmptyString, "PARAM Files (*.param)|*.param", wxFD_OPEN|wxFD_FILE_MUST_EXIST);
-        openFileDialog.SetFilterIndex(0);
-        if (openFileDialog.ShowModal() == wxID_OK) {
-          label_param->SetLabelText(wxString::Format("File = %s",  openFileDialog.GetPath()));
-          std::cout << openFileDialog.GetPath() << std::endl;
-          paramPath = openFileDialog.GetPath();
-        }
-      });
 
     button->Bind(wxEVT_BUTTON, [&](wxCommandEvent& event) {
         if (current_conversion == "NCNN-optimized") {
@@ -93,6 +96,8 @@ namespace Examples {
             "ncnn_optimized.param",
             "ncnn_optimized.bin"
           );
+
+          wxMessageDialog(nullptr, "Converted ! ").ShowModal();
         } 
     });
   }
@@ -117,7 +122,8 @@ namespace Examples {
 
           buttonfile_bin   = new wxButton(panel, wxID_ANY, "Load BIN", {35, 150});
           buttonfile_param = new wxButton(panel, wxID_ANY, "Load PARAM", {35, 230});
-
+          updateButtonBin();
+          updateButtonParam();
       }
     }
     void OnChoicClick2(wxCommandEvent& e) {
