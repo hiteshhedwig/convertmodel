@@ -11,9 +11,9 @@
 #include "layer.h"
 #include "layer_type.h"
 #include "net.h"
-
 #include "ncnnoptimize.h"
-#include "ncnnreader.h"
+
+#include "optimizer.h"
 #include <algorithm>
 #include <map>
 #include <set>
@@ -23,6 +23,8 @@ namespace Examples {
 
   class Frame : public wxFrame {
   public:
+  const char* binPath;
+  const char* paramPath;
   Frame() : wxFrame(nullptr, wxID_ANY, "savior") {
     SetClientSize(640, 480);
 
@@ -47,22 +49,39 @@ namespace Examples {
 
     
 
-    // button->Bind(wxEVT_BUTTON, [&](wxCommandEvent& event) {
+    buttonfile_bin->Bind(wxEVT_BUTTON, [&](wxCommandEvent& event) {
+        wxFileDialog openFileDialog(this, wxEmptyString, wxEmptyString, wxEmptyString, "BIN Files (*.bin)|*.bin", wxFD_OPEN|wxFD_FILE_MUST_EXIST);
+        openFileDialog.SetFilterIndex(0);
+        if (openFileDialog.ShowModal() == wxID_OK) {
+          label_bin->SetLabelText(wxString::Format("File = %s",  openFileDialog.GetPath()));
+          std::cout << openFileDialog.GetPath() << std::endl;
+          binPath = openFileDialog.GetPath();
+        }
+      });
 
-    //     wxFileDialog openFileDialog(this, wxEmptyString, wxEmptyString, wxEmptyString, "Text Files (*.txt)|*.txt|All Files (*.*)|*.*", wxFD_OPEN|wxFD_FILE_MUST_EXIST);
-    //     openFileDialog.SetFilterIndex(0);
-    //     if (openFileDialog.ShowModal() == wxID_OK) {
-    //       label->SetLabelText(wxString::Format("File = %s",  openFileDialog.GetPath()));
-    //     }
-    //   });
+    buttonfile_param->Bind(wxEVT_BUTTON, [&](wxCommandEvent& event) {
+        wxFileDialog openFileDialog(this, wxEmptyString, wxEmptyString, wxEmptyString, "PARAM Files (*.param)|*.param", wxFD_OPEN|wxFD_FILE_MUST_EXIST);
+        openFileDialog.SetFilterIndex(0);
+        if (openFileDialog.ShowModal() == wxID_OK) {
+          label_param->SetLabelText(wxString::Format("File = %s",  openFileDialog.GetPath()));
+          std::cout << openFileDialog.GetPath() << std::endl;
+          paramPath = openFileDialog.GetPath();
+        }
+      });
 
     button->Bind(wxEVT_BUTTON, [&](wxCommandEvent& event) {
-        staticText1->SetLabel(wxString::Format("Converted clicked %d times", ++button1Clicked));
-        optimizer.storage_type = 0;
-        optimizer.load_param("/home/eulermotors/ncnn/tools/tools/onnx/conv/ncnn.param");
-        optimizer.load_model("/home/eulermotors/ncnn/tools/tools/onnx/conv/ncnn.bin");
-        optimizer.optimize();
-        optimizer.save_optimized_model("test.param", "test.bin");
+        staticText1->SetLabel(wxString::Format("Converted !", ++button1Clicked));
+        optimizer.ncnnOptimize(
+          false,
+          nullptr,
+          "/home/eulermotors/ncnn/tools/tools/onnx/conv/ncnn.param",
+          "/home/eulermotors/ncnn/tools/tools/onnx/conv/ncnn.bin"
+        );
+
+        optimizer.saveOptimized(
+          "test1.param",
+          "test1.bin"
+        );
     });
   }
 
@@ -95,11 +114,17 @@ namespace Examples {
     wxChoice* choice1 = new wxChoice(panel, wxID_ANY, {25, 60});
     wxChoice* choice2 = new wxChoice(panel, wxID_ANY, {400, 60});
     wxButton* button = new wxButton(panel, wxID_ANY, "Convert", {200, 260});
-    // wxStaticText* label = new wxStaticText(panel, wxID_ANY, "", {10, 300});
+    wxButton* buttonfile_bin = new wxButton(panel, wxID_ANY, "Load BIN", {300, 260});
+    wxButton* buttonfile_param = new wxButton(panel, wxID_ANY, "Load PARAM", {300, 300});
+
+    wxStaticText* label_bin = new wxStaticText(panel, wxID_ANY, "", {300, 270});
+    wxStaticText* label_param = new wxStaticText(panel, wxID_ANY, "", {300, 310});
+
+
     wxStaticText* staticText1 = new wxStaticText(panel, wxID_ANY, "button1 clicked 0 times", {50, 150}, {200, 20});
     int button1Clicked = 0;
-    NetOptimize optimizer ;
-
+    Optimizer optimizer;
+    //NetOptimize optimizer;
 
     };
 

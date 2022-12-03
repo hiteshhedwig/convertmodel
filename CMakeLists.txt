@@ -10,6 +10,7 @@ include(${wxWidgets_USE_FILE})
 set(
     SOURCES test.cpp
             src/ncnnoptimize.cpp
+            src/optimizer.cpp
 )
 
 # Options

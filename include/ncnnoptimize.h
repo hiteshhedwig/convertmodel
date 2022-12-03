@@ -7,6 +7,8 @@ class NetOptimize : public ModelWriter
 {
 public:
     NetOptimize();
+    const char* paramPath;
+    const char* binPath  ;
 
 public:
     int fuse_batchnorm_scale();
@@ -47,9 +49,22 @@ public:
     int replace_convolution_with_innerproduct_after_innerproduct();
 
     int optimize();
+    void truncateFP16(const char* cutstartname) {
+        storage_type = 1 ;
+        set_cutparam(cutstartname, nullptr);
+    }
+    void truncateFP32(const char* cutstartname) {
+        storage_type = 0 ;
+    }
     int save_optimized_model(const char *paramPath, const char *binPath) {
         save(paramPath, binPath);
     }
+
+    void loadNcnnModel(const char *paramPath, const char *binPath) {
+        load_param(paramPath);
+        load_model(binPath);
+    }
+
 };
 
 
