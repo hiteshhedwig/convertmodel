@@ -19,13 +19,15 @@
 #include <set>
 #include <vector>
 
+
 namespace Examples {
 
   class Frame : public wxFrame {
   public:
-  std::string current_conversion;
+  std::string current_conversion = "onnx2ncnn";
   std::string paramPath ;
   std::string binPath   ;
+  std::string onnxPath  ;
 
   void updateButtonBin() {
     buttonfile_bin->Bind(wxEVT_BUTTON, [&](wxCommandEvent& event) {
@@ -51,25 +53,41 @@ namespace Examples {
       });
   }
 
+  void updateOnnx() {
+    buttonOnnx->Bind(wxEVT_BUTTON, [&](wxCommandEvent& event) {
+        wxFileDialog openFileDialog(this, wxEmptyString, wxEmptyString, wxEmptyString, "ONNX Files (*.onnx)|*.onnx", wxFD_OPEN|wxFD_FILE_MUST_EXIST);
+        openFileDialog.SetFilterIndex(0);
+        if (openFileDialog.ShowModal() == wxID_OK) {
+          label_onnx->SetLabelText(wxString::Format("File = %s",  openFileDialog.GetPath()));
+          std::cout << openFileDialog.GetPath() << std::endl;
+          onnxPath = openFileDialog.GetPath();
+        }
+      });
+  }
+
+  void removeNCNNOptimButton() {
+    removeButtonBin();
+    removeButtonParam();
+  }
+
+  void removeButtonParam() {
+    buttonfile_param->Destroy();
+  }
+
+  void removeButtonBin() {
+    buttonfile_bin->Destroy();
+  }
+
+
   Frame() : wxFrame(nullptr, wxID_ANY, "savior") {
-    SetClientSize(640, 480);
-
-    // welcometext->SetLabel("Convert Models Quick");
-    // welcometext->SetFont({15, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_EXTRABOLD});
-    // welcometext->SetForegroundColour(wxTheColourDatabase->Find("Black"));
-
-    // infotext->SetFont({8, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_LIGHT});
-    // infotext->SetForegroundColour(wxTheColourDatabase->Find("White"));
-
-
-    
+    SetClientSize(640, 480);   
 
     choice1->Append({"ONNX", "NCNN", "MNN", "PNNX"});
     choice1->SetSelection(0);
     choice1->Bind(wxEVT_CHOICE, &Frame::OnChoicClick, this);
 
 
-    choice2->Append({"ONNX", "NCNN", "NCNN-optimized", "MNN", "PNNX"});
+    choice2->Append({"NCNN", "ONNX", "NCNN-optimized", "MNN", "PNNX"});
     choice2->SetSelection(0);
     choice2->Bind(wxEVT_CHOICE, &Frame::OnChoicClick2, this);
 
@@ -99,6 +117,17 @@ namespace Examples {
 
           wxMessageDialog(nullptr, "Converted ! ").ShowModal();
         } 
+
+        if (current_conversion == "onnx2ncnn") {
+          if (onnxPath.empty()) {
+              std::cout << "onnx path not specified" << binPath << std::endl;
+              wxMessageDialog(nullptr, ".onnx path not loaded").ShowModal();
+              return;
+          }
+          optimizer.convertFromOnnx2Ncnn(onnxPath.c_str());
+          wxMessageDialog(nullptr, "Saved!!" ).ShowModal();
+          return;
+        }
     });
   }
 
@@ -108,10 +137,13 @@ namespace Examples {
       std::cout << choice1->GetSelection() << std::endl;
       if (choice1->GetSelection() == 0) {
           wxChoice* choice2 = new wxChoice(panel, wxID_ANY, {400, 60});
-          choice2->Append("ONNX-sim");
+          //choice2->Append("ONNX-sim");
           choice2->Append("NCNN");
           choice2->SetSelection(0);
           choice2->Bind(wxEVT_CHOICE, &Frame::OnChoicClick2, this);
+          buttonOnnx   = new wxButton(panel, wxID_ANY, "Load ONNX", {35, 150});
+          current_conversion = "onnx2ncnn" ;
+          updateOnnx();
       }   
       if (choice1->GetSelection() == 1) {
           wxChoice* choice2 = new wxChoice(panel, wxID_ANY, {400, 60});
@@ -124,6 +156,8 @@ namespace Examples {
           buttonfile_param = new wxButton(panel, wxID_ANY, "Load PARAM", {35, 230});
           updateButtonBin();
           updateButtonParam();
+      } else {
+          removeNCNNOptimButton();
       }
     }
     void OnChoicClick2(wxCommandEvent& e) {
@@ -140,10 +174,12 @@ namespace Examples {
     wxButton* button = new wxButton(panel, wxID_ANY, "Convert", {260, 300});
     wxButton* buttonfile_bin   = new wxButton() ;//= new wxButton(panel, wxID_ANY, "Load BIN", {35, 150});
     wxButton* buttonfile_param = new wxButton(); //= new wxButton(panel, wxID_ANY, "Load PARAM", {35, 230});
+    wxButton* buttonOnnx       = new wxButton(); 
+
 
     wxStaticText* label_bin = new wxStaticText(panel, wxID_ANY, "", {35, 200});
     wxStaticText* label_param = new wxStaticText(panel, wxID_ANY, "", {35, 270});
-
+    wxStaticText* label_onnx = new wxStaticText(panel, wxID_ANY, "", {35, 200});
 
     //wxStaticText* staticText1 = new wxStaticText(panel, wxID_ANY, "button1 clicked 0 times", {50, 150}, {200, 20});
     int button1Clicked = 0;
